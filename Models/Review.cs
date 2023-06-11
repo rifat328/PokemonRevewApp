@@ -7,6 +7,6 @@
         public string Text { get; set; }
         public Reviewer Reviewer { get; set; }
         public Pokemon Pokemon { get; set; }
-
+        public int Rating { get; internal set; }
     }
 }
