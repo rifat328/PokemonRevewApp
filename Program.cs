@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using PokemonRevewApp;
 using PokemonRevewApp.Data;
+using PokemonRevewApp.Interfaces;
+using PokemonRevewApp.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // inject seed 
 builder.Services.AddTransient<Seed>();
+builder.Services.AddScoped<IPokemonRepository,PokemonRepository>();
 // pulled back and loaded connection string from appsettings.json file 
 builder.Services.AddDbContext<DataContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
