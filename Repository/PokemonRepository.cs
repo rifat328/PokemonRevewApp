@@ -12,7 +12,7 @@ namespace PokemonRevewApp.Repository
         {
             this.context = context;
         }
-
+        //
         public ICollection<Pokemon> GetPokemons()
         {
             return context.Pokemon.OrderBy(p=>p.Id).ToList();
