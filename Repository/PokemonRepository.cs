@@ -16,17 +16,23 @@ namespace PokemonRevewApp.Repository
 
         public Pokemon GetPokemon(int id)
         {
-            throw new NotImplementedException();
+            return context.Pokemon.Where(p => p.Id == id).FirstOrDefault();  
         }
 
         public Pokemon GetPokemon(string name)
         {
-            throw new NotImplementedException();
+            return context.Pokemon.Where(p => p.Name == name).FirstOrDefault();
+
         }
 
         public decimal GetPokemonRating(int pokeId)
         {
-            throw new NotImplementedException();
+            var review = context.Reviews.Where(p => p.Pokemon.Id == pokeId);
+
+            if (review.Count() <= 0)
+                return 0;
+            return ((decimal)review.Sum(r => r.Rating) / review.Count());
+            // (decimal) called conversion
         }
 
         //
@@ -37,7 +43,7 @@ namespace PokemonRevewApp.Repository
 
         public bool PokemonExists(int pokeId)
         {
-            throw new NotImplementedException();
+            return context.Pokemon.Any(p => p.Id == pokeId);
         }
     }
 }

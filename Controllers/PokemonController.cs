@@ -27,6 +27,35 @@ namespace PokemonRevewApp.Controllers
             }
             return Ok(pokemons);
         }
+        [HttpGet("{pokeId}")]
+        [ProducesResponseType(200, Type=typeof(Pokemon))]
+        [ProducesResponseType(400)]
+        public IActionResult GetPokemon(int pokeId) 
+        {
+            //Validation
+            if(! pokemonRepository.PokemonExists(pokeId))
+            {
+                return NotFound();
+            }
+            var pokemon=pokemonRepository.GetPokemon(pokeId);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            return Ok(pokemon);
+
+        }
+        [HttpGet("{pokeId}/rating")]
+        [ProducesResponseType(200, Type = typeof(decimal))]
+        [ProducesResponseType(400)]
+        public IActionResult GetPokemonRating(int pokeId)
+        {
+            if(!pokemonRepository.PokemonExists(pokeId))
+                return NotFound();
+            var rating=pokemonRepository.GetPokemonRating(pokeId);
+
+            if(!ModelState.IsValid) 
+                return BadRequest(ModelState);
+            return Ok(rating);
+        }
     }   
 
 }
