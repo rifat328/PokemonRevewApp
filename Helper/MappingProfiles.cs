@@ -8,6 +8,7 @@ namespace PokemonRevewApp.Helper
     {
         public MappingProfiles() {
             CreateMap<Pokemon, PokemonDto>(); //  youtube time stamp : https://youtu.be/K4WuxwkXrIY?t=1615
+            
         }
     }
 }

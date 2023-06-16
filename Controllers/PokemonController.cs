@@ -1,6 +1,8 @@
 ﻿
 
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PokemonRevewApp.Dto;
 using PokemonRevewApp.Interfaces;
 using PokemonRevewApp.Models;
 
@@ -11,16 +13,18 @@ namespace PokemonRevewApp.Controllers
     public class PokemonController : Controller
     {
         private readonly IPokemonRepository pokemonRepository;
+        private readonly IMapper mapper;
 
-        public PokemonController(IPokemonRepository pokemonRepository)
+        public PokemonController(IPokemonRepository pokemonRepository, IMapper mapper)
         {
             this.pokemonRepository = pokemonRepository;
+            this.mapper = mapper;
         }
         [HttpGet]
         [ProducesResponseType(200,Type=typeof(IEnumerable<Pokemon>))]
         public IActionResult GetPokemons()
         {
-            var pokemons = pokemonRepository.GetPokemons();
+            var pokemons =mapper.Map<List<PokemonDto>>( pokemonRepository.GetPokemons());
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
