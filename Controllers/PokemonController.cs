@@ -41,7 +41,7 @@ namespace PokemonRevewApp.Controllers
             {
                 return NotFound();
             }
-            var pokemon=pokemonRepository.GetPokemon(pokeId);
+            var pokemon=mapper.Map<PokemonDto>(pokemonRepository.GetPokemon(pokeId));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             return Ok(pokemon);
